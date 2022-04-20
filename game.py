@@ -51,14 +51,14 @@ py.init()
 # existing entities
 bullets = []
 air_planes = []
-
+a
 # plane spawn
 def random_spawn():
     air_planes.append(airplanes(1, random.randint(30,220), 30,30, WHITE))
     
 # primary data loop
 while True:
-    if(py.time.get_ticks()-last_time > random.randint(2500,3500)):
+    if(py.time.get_ticks()-last_time > random.randint(3000,4000) and len(air_planes)<3):
         random_spawn()
         last_time = py.time.get_ticks()
     # update planes coordinates
