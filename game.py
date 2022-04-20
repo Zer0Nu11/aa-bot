@@ -51,7 +51,6 @@ py.init()
 # existing entities
 bullets = []
 air_planes = []
-a
 # plane spawn
 def random_spawn():
     air_planes.append(airplanes(1, random.randint(30,220), 30,30, WHITE))
