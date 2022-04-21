@@ -1,3 +1,4 @@
+from operator import index
 import pygame as py
 import math
 import random
@@ -5,7 +6,7 @@ import random
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 RED = (255,0,0)
-
+L = 350 # line
 W = 900 # pixel screensize
 H = 400
 FPS = 20 # tickrate
@@ -16,9 +17,10 @@ y = H//2
 a = 0
 score = 0
 x0 = 200+(math.cos(a*math.pi/180))
-y0 = 340+(math.sin(a*math.pi/180))
+y0 = L-10+(math.sin(a*math.pi/180))
 alpha = 5 # angle per button press
 flLeft = flRight = False # button long-press flags
+air = py.image.load('plane.png')
 
 random.seed()
 
@@ -31,7 +33,7 @@ class airplanes():
         self.color = color
         self.speed = 5
     def draw(self,win):
-        py.draw.rect(win,self.color,(self.x,self.y,self.width,self.height))
+        win.blit(air,(self.x,self.y))
 
 class projectile():
     def __init__(self, x, y, radius, color, facing, grad):
@@ -57,7 +59,7 @@ def random_spawn():
     
 # primary data loop
 while True:
-    if(py.time.get_ticks()-last_time > random.randint(3000,4000) and len(air_planes)<3):
+    if(py.time.get_ticks()-last_time > random.randint(2000,3000)):
         random_spawn()
         last_time = py.time.get_ticks()
     # update planes coordinates
@@ -65,10 +67,10 @@ while True:
         if airplane.x < W and airplane.x > 0 and airplane.y < H and airplane.y > 0:
             airplane.x += airplane.speed
         if airplane.x >= W:
-            airplane.x = 0 + airplane.speed
+            air_planes.pop(air_planes.index(airplane))
     # update shells coordinates
     for bullet in bullets:
-        if bullet.x < W and bullet.x > 0 and bullet.y < H and bullet.y > 0:
+        if bullet.x < W and bullet.x > 0 and bullet.y < H and bullet.y > 0 and bullet.y < L:
             bullet.x = x0 +  bullet.vel*(math.cos(bullet.grad*math.pi/180))*bullet.time
             bullet.y = y0 - (bullet.vel*(-math.sin(bullet.grad*math.pi/180))*bullet.time - 1/2*(bullet.time**2))
             bullet.time+=1
@@ -84,7 +86,7 @@ while True:
             if event.key == py.K_d:
                 flRight = True
             if event.key == py.K_SPACE:
-                bullets.append(projectile(200+(math.cos(a*math.pi/180)*50),340+(math.sin(a*math.pi/180)*50),10,WHITE,300,a))
+                bullets.append(projectile(200+(math.cos(a*math.pi/180)*50),L - 10+(math.sin(a*math.pi/180)*50),10,WHITE,300,a))
         elif event.type == py.KEYUP:
             if event.key in [py.K_a, py.K_d]:
                 flLeft = flRight = False
@@ -103,7 +105,7 @@ while True:
     # check hits
     for bullet in bullets:
         for airplane in air_planes:
-            if (airplane.x <= bullet.x and airplane.x + airplane.width >= bullet.x) and (airplane.y <= bullet.y and airplane.y + airplane.height >= bullet.y):
+            if (airplane.x <= bullet.x and airplane.x + air.get_width() >= bullet.x) and (airplane.y <= bullet.y and airplane.y + air.get_height() >= bullet.y):
                 air_planes.pop(air_planes.index(airplane))
                 bullets.pop(bullets.index(bullet))
                 score+=1
@@ -113,9 +115,9 @@ while True:
     img = font.render('Score='+str(score), True, WHITE)
     screen.blit(img, (W//2-90, H-30))
 
-    py.draw.line(screen,WHITE,(0,350),(W,350))
-    py.draw.line(screen,WHITE,(200,340),(200+(math.cos(a*math.pi/180)*50),340+(math.sin(a*math.pi/180)*50)),10)
-    py.draw.rect(screen,WHITE,(190,330,20,20))
+    py.draw.line(screen,WHITE,(0,L),(W,L))
+    py.draw.line(screen,WHITE,(200,L - 10),(200+(math.cos(a*math.pi/180)*50),L - 10+(math.sin(a*math.pi/180)*50)),10)
+    py.draw.rect(screen,WHITE,(190,L - 20,20,20))
     py.display.flip()
 
     clock.tick(FPS)
