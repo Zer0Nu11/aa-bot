@@ -1,4 +1,3 @@
-from operator import index
 import pygame as py
 import math
 import random
@@ -20,7 +19,7 @@ x0 = 200+(math.cos(a*math.pi/180))
 y0 = L-10+(math.sin(a*math.pi/180))
 alpha = 5 # angle per button press
 flLeft = flRight = False # button long-press flags
-air = py.image.load('plane.png')
+air = py.image.load('src/plane.png')
 
 random.seed()
 
