@@ -103,6 +103,7 @@ class AntiAirEnv(gym.Env):
             self.done = True
 
         info = {}
+
         observation = self.render(mode="rgb_array")
         return observation, reward, self.done, info
 
@@ -111,6 +112,7 @@ class AntiAirEnv(gym.Env):
         self.airplanes = [airplane(True) for i in range(PLANE_NUM)]
         self.projectiles = []
         self.bullets = 5
+        self.done = False
         observation = self.render(mode="rgb_array")
         return observation
 
@@ -154,6 +156,7 @@ class AntiAirEnv(gym.Env):
             pygame.event.pump()
             pygame.display.update()
             self.clock.tick(TICKS)
+            
         if mode == "rgb_array":
             image_array = np.transpose(np.array(pygame.surfarray.pixels3d(self.screen)), axes=(1, 0, 2))            
             return image_array[::4, ::4]

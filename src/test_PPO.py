@@ -3,7 +3,7 @@ from stable_baselines3 import PPO
 from aaEnv import AntiAirEnv
 
 models_dir = "models/PPO"
-TIMESTEPS = 100_000
+TIMESTEPS = 20_000
 
 # env = gym.make('LunarLander-v2')  # continuous: LunarLanderContinuous-v2
 env = AntiAirEnv()
