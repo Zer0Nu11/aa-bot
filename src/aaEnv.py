@@ -6,9 +6,11 @@ import numpy as np
 import pygame
 
 # UNIX server 
-import os
-# os.environ["SDL_VIDEODRIVER"] = "dummy"
-# os.environ['SDL_AUDIODRIVER'] = 'dsp'
+UNIX_SERVER = False
+if UNIX_SERVER:
+    import os
+    os.environ["SDL_VIDEODRIVER"] = "dummy"
+    os.environ['SDL_AUDIODRIVER'] = 'dsp'
 
 PLANE_NUM = 3 # max planes in same moment
 WIDTH = 1280

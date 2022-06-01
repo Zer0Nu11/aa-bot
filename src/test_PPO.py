@@ -1,5 +1,5 @@
 import gym
-from stable_baselines3 import PPO2
+from sb3_contrib import RecurrentPPO
 from aaEnv import AntiAirEnv
 from matplotlib import pyplot as plt
 
@@ -11,7 +11,7 @@ env = AntiAirEnv()
 env.reset()
 
 model_path = f"{models_dir}/{TIMESTEPS}"
-model = PPO2.load(model_path, env=env)
+model = RecurrentPPO.load(model_path, env=env)
 
 episodes = 10
 
