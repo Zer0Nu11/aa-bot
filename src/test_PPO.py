@@ -1,17 +1,17 @@
 import gym
-from stable_baselines3 import PPO
+from stable_baselines3 import PPO2
 from aaEnv import AntiAirEnv
 from matplotlib import pyplot as plt
 
 models_dir = "models/PPO"
-TIMESTEPS = 50_000
+TIMESTEPS = 0
 
 # env = gym.make('LunarLander-v2')  # continuous: LunarLanderContinuous-v2
 env = AntiAirEnv()
 env.reset()
 
 model_path = f"{models_dir}/{TIMESTEPS}"
-model = PPO.load(model_path, env=env)
+model = PPO2.load(model_path, env=env)
 
 episodes = 10
 

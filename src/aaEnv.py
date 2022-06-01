@@ -81,7 +81,7 @@ class AntiAirEnv(gym.Env):
         self.angle = -90
         self.alpha = 1 # degress per step
         self.bullets = 5
-        self.bulletBonus = 3
+        self.bulletBonus = 5
 
         self.screen = None
         self.clock = None
@@ -93,7 +93,7 @@ class AntiAirEnv(gym.Env):
             if plane.x > WIDTH or plane.x < -WIDTH/10:
                 self.airplanes.remove(plane)
                 self.airplanes.append(airplane())
-        for proj in self.projectiles:
+        for proj in list(self.projectiles):
             proj.update(self.airplanes, self.projectiles)
             if (proj.x > WIDTH or proj.x < 0) or (proj.y > HEIGHT or proj.y < 0):
                 # proj.updateReward()
@@ -103,8 +103,8 @@ class AntiAirEnv(gym.Env):
                 except ValueError:
                     print("Object projectile already deleted | miss")
 
-        for plane in self.airplanes:
-            for proj in self.projectiles:
+        for plane in list(self.airplanes):
+            for proj in list(self.projectiles):
                 if (plane.x <= proj.x and plane.x + plane_img.get_width() >= proj.x) and (plane.y <= proj.y and plane.y + plane_img.get_height() >= proj.y):
                     # proj.updateReward()
                     # reward += proj.reward
@@ -138,7 +138,7 @@ class AntiAirEnv(gym.Env):
 
         info = {}
 
-        reward = self.bullets
+        reward = self.bullets - 5
 
         observation = self.render(mode="rgb_array")
         return observation, reward, self.done, info

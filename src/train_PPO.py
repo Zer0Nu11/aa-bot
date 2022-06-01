@@ -1,5 +1,5 @@
 import gym
-from stable_baselines3 import PPO
+from stable_baselines3 import PPO2
 import os
 from aaEnv import AntiAirEnv
 
@@ -18,7 +18,7 @@ if not os.path.exists(logdir):
 env = AntiAirEnv()
 env.reset()
 
-model = PPO('MlpPolicy', env, verbose=1, tensorboard_log=logdir)
+model = PPO2('MlpPolicy', env, verbose=1, tensorboard_log=logdir)
 
 for i in range(EPOCHS):
     model.learn(total_timesteps=TIMESTEPS, reset_num_timesteps=False, tb_log_name="PPO")
