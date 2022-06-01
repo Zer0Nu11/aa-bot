@@ -18,7 +18,7 @@ if not os.path.exists(logdir):
 env = AntiAirEnv()
 env.reset()
 
-model = RecurrentPPO('MlpPolicy', env, verbose=1, tensorboard_log=logdir)
+model = RecurrentPPO('CnnLstmPolicy', env, verbose=1, tensorboard_log=logdir)
 
 for i in range(EPOCHS):
     model.learn(total_timesteps=TIMESTEPS, reset_num_timesteps=False, tb_log_name="PPO")

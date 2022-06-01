@@ -4,7 +4,7 @@ from aaEnv import AntiAirEnv
 from matplotlib import pyplot as plt
 
 models_dir = "models/PPO"
-TIMESTEPS = 0
+TIMESTEPS = 10_000
 
 # env = gym.make('LunarLander-v2')  # continuous: LunarLanderContinuous-v2
 env = AntiAirEnv()
