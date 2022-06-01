@@ -3,6 +3,8 @@ aa-bot
 
 Anti-air game with RL-agent
 
+![alt text](src/assets/myAAgun.jpg)
+
 Project Organization
 ------------
 

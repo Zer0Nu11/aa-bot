@@ -14,6 +14,7 @@ PLANE_NUM = 3 # max planes in same moment
 WIDTH = 1280
 HEIGHT = 720
 TICKS = 60 # ticks per second
+
 MAX_DISTANCE = math.sqrt(HEIGHT*HEIGHT+WIDTH*WIDTH/4) # Max distance between bullet and airplane
 # how much this values influence on behaviour
 SHOT_DENSITY = 1.
@@ -49,22 +50,22 @@ class projectile():
         self.speed = 10
         self.speed_v = self.speed * math.sin(math.radians(self.angle))
         self.speed_h = self.speed * math.cos(math.radians(self.angle))
-        self.minDistPlane = MAX_DISTANCE
-        self.minDistProjectile = MAX_DISTANCE
-        self.reward = 0
+        # self.minDistPlane = MAX_DISTANCE
+        # self.minDistProjectile = MAX_DISTANCE
+        # self.reward = 0
 
     def update(self, airplanes, projectiles):
         self.y += self.speed_v
         self.x += self.speed_h
         self.speed_v += 0.085
         # less -> better
-        self.minDistPlane = min(min([math.sqrt((plane.x-self.x)**2 + (plane.y-self.y)**2) for plane in airplanes]), self.minDistPlane)
+        # self.minDistPlane = min(min([math.sqrt((plane.x-self.x)**2 + (plane.y-self.y)**2) for plane in airplanes]), self.minDistPlane)
         # more -> better
-        self.minDistProjectile = min(min([math.sqrt((proj.x-self.x)**2 + (proj.y-self.y)**2) for proj in projectiles]), self.minDistProjectile)
+        # self.minDistProjectile = min(min([math.sqrt((proj.x-self.x)**2 + (proj.y-self.y)**2) for proj in projectiles]), self.minDistProjectile)
 
-    def updateReward(self):
+    # def updateReward(self):
         # reward of bullet ~ minDistProjectile / minDistPlane
-        self.reward = (MAX_DISTANCE/10 - SHOT_ACCURACY*self.minDistPlane + SHOT_DENSITY*self.minDistProjectile) # less accuracy -> less reward
+        # self.reward = (MAX_DISTANCE/10 - SHOT_ACCURACY*self.minDistPlane + SHOT_DENSITY*self.minDistProjectile) # less accuracy -> less reward
 
 class AntiAirEnv(gym.Env):
     def __init__(self):
@@ -95,8 +96,8 @@ class AntiAirEnv(gym.Env):
         for proj in self.projectiles:
             proj.update(self.airplanes, self.projectiles)
             if (proj.x > WIDTH or proj.x < 0) or (proj.y > HEIGHT or proj.y < 0):
-                proj.updateReward()
-                reward += proj.reward
+                # proj.updateReward()
+                # reward += proj.reward
                 try:
                     self.projectiles.remove(proj)
                 except ValueError:
@@ -105,8 +106,8 @@ class AntiAirEnv(gym.Env):
         for plane in self.airplanes:
             for proj in self.projectiles:
                 if (plane.x <= proj.x and plane.x + plane_img.get_width() >= proj.x) and (plane.y <= proj.y and plane.y + plane_img.get_height() >= proj.y):
-                    proj.updateReward()
-                    reward += proj.reward
+                    # proj.updateReward()
+                    # reward += proj.reward
                     try:
                         self.airplanes.remove(plane)
                     except ValueError:
@@ -136,6 +137,8 @@ class AntiAirEnv(gym.Env):
             self.done = True
 
         info = {}
+
+        reward = self.bullets
 
         observation = self.render(mode="rgb_array")
         return observation, reward, self.done, info

@@ -3,8 +3,8 @@ from stable_baselines3 import PPO
 import os
 from aaEnv import AntiAirEnv
 
-TIMESTEPS = 10000 # steps per save
-EPOCHS = 5
+TIMESTEPS = 50000 # steps per save
+EPOCHS = 10
 
 models_dir = "models/PPO"
 logdir = "logs"
