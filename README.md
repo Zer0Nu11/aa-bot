@@ -12,8 +12,14 @@ Simple Anti-Air game with RL-agent
 pip install -r requirements.txt
 ```
 
+Run this to check environment
+```
+python3 src/check_env.py
+```
+
 ## Training
 set variables TIMESTEPS, EPOCHS in src/train_PPO.py
+set variable UNIX_SERVER=True in src/aaEnv.py to enable training on UNIX server
 ```
 python3 src/train_PPO.py
 ```
@@ -27,6 +33,7 @@ Play game:
 ```
 python3 src/play.py
 ```
+Press A and D to turn left and right. Space to shot.
 
 Test agent:
 set variable TIMESTEPS in src/test_PPO.py
@@ -38,11 +45,11 @@ Project Organization
 ------------
 
     ├── LICENSE
-    ├── README.md          <- The top-level README for developers using this project.
+    ├── README.md          <- README for developers
     │
     ├── docs               <- Documentation
     │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
+    ├── models             <- Trained models
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │

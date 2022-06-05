@@ -30,20 +30,18 @@ def event_to_action(eventlist):
 env = AntiAirEnv()
 
 # human render
-
-# env.render()
-# run = True
-# while run:
-#     key = None
-#     get_event = pygame.event.get()
-#     event_to_action(get_event)
-#     env.step(action=key)
-#     env.render()
-#     run = not env.done and run
+env.render()
+run = True
+while run:
+    key = None
+    get_event = pygame.event.get()
+    event_to_action(get_event)
+    env.step(action=key)
+    env.render()
+    run = not env.done and run
 
 
 # numpy array output
-
 # for i in range(50):
 #     env.step(action=1)
 #     if i%10==0:
