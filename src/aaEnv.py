@@ -52,6 +52,7 @@ class projectile():
         self.y += self.speed_v
         self.x += self.speed_h
         self.speed_v += 0.085
+
 class AntiAirEnv(gym.Env):
     def __init__(self):
         super(AntiAirEnv, self).__init__()
@@ -65,14 +66,15 @@ class AntiAirEnv(gym.Env):
         self.projectiles = []
         self.angle = -90
         self.alpha = 1 # degress per step
-        self.bullets = 5
+        self.bullets = 3
         self.reward = 0
-        self.bulletBonus = 5
+        self.bulletBonus = 3
 
         self.screen = None
         self.clock = None
 
     def step(self, action=None):
+        self.reward = 0
         for plane in self.airplanes:
             plane.update()
             if plane.x > WIDTH or plane.x < -WIDTH/10:
@@ -90,7 +92,7 @@ class AntiAirEnv(gym.Env):
         for plane in list(self.airplanes):
             for proj in list(self.projectiles):
                 if (plane.x <= proj.x and plane.x + plane_img.get_width() >= proj.x) and (plane.y <= proj.y and plane.y + plane_img.get_height() >= proj.y):
-                    reward += 1
+                    self.reward += 3
                     try:
                         self.airplanes.remove(plane)
                     except ValueError:

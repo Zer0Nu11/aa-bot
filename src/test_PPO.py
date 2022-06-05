@@ -1,19 +1,19 @@
 import gym
-from sb3_contrib import RecurrentPPO
+from stable_baselines3 import PPO
 from aaEnv import AntiAirEnv
 from matplotlib import pyplot as plt
 
 models_dir = "models/PPO"
-TIMESTEPS = 10_000
+TIMESTEPS = 0
 
 # env = gym.make('LunarLander-v2')  # continuous: LunarLanderContinuous-v2
 env = AntiAirEnv()
 env.reset()
 
 model_path = f"{models_dir}/{TIMESTEPS}"
-model = RecurrentPPO.load(model_path, env=env)
+model = PPO.load(model_path, env=env)
 
-episodes = 10
+episodes = 5
 
 rwrds = []
 
@@ -26,14 +26,9 @@ for ep in range(episodes):
         env.render()
         rwrds.append((rewards))
 
-print("================")
-print(sum(rwrds)/len(rwrds))
-print(min(rwrds), max(rwrds))
-
 plt.plot(rwrds)
 plt.show()
-print(rwrds)
 rwrds.sort()
-print("================")
+print(sum(rwrds)/len(rwrds))
+print(min(rwrds), max(rwrds))
 print(rwrds[len(rwrds)//2])
-print(rwrds)

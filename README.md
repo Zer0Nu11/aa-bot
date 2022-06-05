@@ -1,9 +1,38 @@
-aa-bot
-==============================
+# AA-bot
 
-Anti-air game with RL-agent
+Simple Anti-Air game with RL-agent
+
 
 ![alt text](src/assets/myAAgun.jpg)
+
+![alt text](src/assets/AAgun.GIF)
+
+## Requirements
+```
+pip install -r requirements.txt
+```
+
+## Training
+set variables TIMESTEPS, EPOCHS in src/train_PPO.py
+```
+python3 src/train_PPO.py
+```
+see training results in tensorboard
+```
+tensorboard --logdir=logs
+```
+
+## Usage
+Play game:
+```
+python3 src/play.py
+```
+
+Test agent:
+set variable TIMESTEPS in src/test_PPO.py
+```
+python3 src/test_PPO.py
+```
 
 Project Organization
 ------------
@@ -22,4 +51,5 @@ Project Organization
     │
     └── src                <- Source code for use in this project.
 
---------
+------------
+

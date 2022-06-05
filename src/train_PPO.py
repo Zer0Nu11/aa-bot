@@ -1,5 +1,5 @@
 import gym
-from sb3_contrib import RecurrentPPO
+from stable_baselines3 import PPO
 import os
 from aaEnv import AntiAirEnv
 
@@ -18,8 +18,8 @@ if not os.path.exists(logdir):
 env = AntiAirEnv()
 env.reset()
 
-model = RecurrentPPO('CnnLstmPolicy', env, verbose=1, tensorboard_log=logdir)
+model = PPO('CnnPolicy', env, verbose=1, tensorboard_log=logdir)
 
 for i in range(EPOCHS):
     model.learn(total_timesteps=TIMESTEPS, reset_num_timesteps=False, tb_log_name="PPO")
-    model.save(f"{models_dir}/{TIMESTEPS*i}")
+    model.save(f"{models_dir}/{TIMESTEPS*(i+1)}")
