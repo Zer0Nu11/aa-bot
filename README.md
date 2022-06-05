@@ -19,6 +19,7 @@ python3 src/check_env.py
 
 ## Training
 set variables TIMESTEPS, EPOCHS in src/train_PPO.py
+
 set variable UNIX_SERVER=True in src/aaEnv.py to enable training on UNIX server
 ```
 python3 src/train_PPO.py
@@ -45,9 +46,12 @@ Project Organization
 ------------
 
     ├── LICENSE
+    │
     ├── README.md          <- README for developers
     │
     ├── docs               <- Documentation
+    │
+    ├── logs               <- Training logs for tensorboard
     │
     ├── models             <- Trained models
     │
@@ -55,8 +59,4 @@ Project Organization
     │
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
-    │
     └── src                <- Source code for use in this project.
-
-------------
-
